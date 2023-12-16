@@ -30,3 +30,7 @@ class Engine:
             pygame.draw.circle(self.screen, color, center, radius, width)
         except ValueError:
             logging.error("Error, Either center is not two numbers in a sequence, or the radius is not a number")
+
+    def draw_rect(self, color, x1, y1, x2, y2, width):
+        rect_rect = pygame.Rect(x1, y1, x2, y2)
+        pygame.draw.rect(self.screen, color, rect_rect, width)
