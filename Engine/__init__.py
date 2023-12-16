@@ -3,6 +3,7 @@ import logging
 
 class Engine:
     def __init__(self, x, y):
+        self.text = None
         pygame.init()
         self.screen = pygame.display.set_mode((x, y))
         self.clock = pygame.time.Clock()
@@ -34,3 +35,14 @@ class Engine:
     def draw_rect(self, color, x1, y1, x2, y2, width):
         rect_rect = pygame.Rect(x1, y1, x2, y2)
         pygame.draw.rect(self.screen, color, rect_rect, width)
+
+    def draw_text(self, text, x, y, font_size):
+        roboto = pygame.font.Font('Roboto-Regular.ttf', font_size)
+        self.text = pygame.font.Font.render(roboto, text, 1, 'Black')
+        self.screen.blit(self.text, (x, y))
+
+    @staticmethod
+    def get_input():
+        keys = pygame.key.get_pressed()
+        return keys
+
