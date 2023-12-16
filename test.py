@@ -28,8 +28,8 @@ while newEngine.running:
     if not keys[pygame.K_LSHIFT]:
         player['speed'] = player['walkspeed']
 
-    newEngine.draw_circle("Red", player['x'], player['y'], 20, 5)
-    newEngine.draw_rect("Blue", 20, 30, 20, 30, 5)
-    newEngine.draw_text('Hello, world!', 70, 70, 32)
+    newEngine.draw_image('./cat.png', 70, 70, player['x'], player['y'])
+    newEngine.draw_text('X: '+str(player['x']), 0, 0, 10)
+    newEngine.draw_text('Y: '+str(player['y']), 0, 10, 10)
     newEngine.step(framerate)
     newEngine.clear_screen("white")

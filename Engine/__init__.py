@@ -41,6 +41,11 @@ class Engine:
         self.text = pygame.font.Font.render(roboto, text, 1, 'Black')
         self.screen.blit(self.text, (x, y))
 
+    def draw_image(self, path, x, y, xpos, ypos):
+        img = pygame.image.load(path).convert_alpha()
+        img = pygame.transform.scale(img, (x, y))
+        self.screen.blit(img, (xpos, ypos))
+
     @staticmethod
     def get_input():
         keys = pygame.key.get_pressed()
