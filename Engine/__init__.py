@@ -36,9 +36,9 @@ class Engine:
         rect_rect = pygame.Rect(x1, y1, x2, y2)
         pygame.draw.rect(self.screen, color, rect_rect, width)
 
-    def draw_text(self, text, x, y, font_size):
-        roboto = pygame.font.Font('Roboto-Regular.ttf', font_size)
-        self.text = pygame.font.Font.render(roboto, text, 1, 'Black')
+    def draw_text(self, text, x, y, font, font_size):
+        newFont = pygame.font.Font(font, font_size)
+        self.text = pygame.font.Font.render(newFont, text, 1, 'Black')
         self.screen.blit(self.text, (x, y))
 
     def draw_image(self, path, x, y, xpos, ypos):
