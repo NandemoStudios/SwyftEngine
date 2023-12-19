@@ -11,6 +11,9 @@ player = {
     'sprintspeed': 6
 }
 
+Roboto = './_internal/font/Roboto-Regular.ttf'
+catimg = './_internal/img/cat.png'
+
 newEngine = Engine.Engine(1280, 720)
 
 while newEngine.running:
@@ -28,8 +31,8 @@ while newEngine.running:
     if not keys[pygame.K_LSHIFT]:
         player['speed'] = player['walkspeed']
 
-    newEngine.draw_image('./_internal/img/cat.png', 70, 70, player['x'], player['y'])
-    newEngine.draw_text('X: '+str(player['x']), 0, 0, './_internal/font/Roboto-Regular.ttf', 10)
-    newEngine.draw_text('Y: '+str(player['y']), 0, 10, './_internal/font/Roboto-Regular.ttf', 10)
+    newEngine.draw_image(catimg, 70, 70, player['x'], player['y'])
+    newEngine.draw_text('X: '+str(player['x']), 0, 0, Roboto, 10)
+    newEngine.draw_text('Y: '+str(player['y']), 0, 10, Roboto, 10)
     newEngine.step(framerate)
     newEngine.clear_screen("white")
