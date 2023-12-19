@@ -41,9 +41,10 @@ class Engine:
         self.text = pygame.font.Font.render(newFont, text, 1, 'Black')
         self.screen.blit(self.text, (x, y))
 
-    def draw_image(self, path, x, y, xpos, ypos):
+    def draw_image(self, path, x, y, xpos, ypos, angle):
         img = pygame.image.load(path).convert_alpha()
         img = pygame.transform.scale(img, (x, y))
+        img = pygame.transform.rotate(img, angle)
         self.screen.blit(img, (xpos, ypos))
 
     @staticmethod

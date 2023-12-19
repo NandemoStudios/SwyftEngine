@@ -1,4 +1,5 @@
 import Engine
+import Engine.maths
 import pygame
 
 framerate = 60
@@ -6,6 +7,7 @@ framerate = 60
 player = {
     'x': 50,
     'y': 50,
+    'angle': 90,
     'speed': 3,
     'walkspeed': 3,
     'sprintspeed': 6
@@ -31,8 +33,11 @@ while newEngine.running:
     if not keys[pygame.K_LSHIFT]:
         player['speed'] = player['walkspeed']
 
-    newEngine.draw_image(catimg, 70, 70, player['x'], player['y'])
+    rot_to_mouse = Engine.maths.get_angle_to_mouse(pygame.Vector2(player['x'], player['y']))
+
+    cat = newEngine.draw_image(catimg, 70, 70, player['x'], player['y'], rot_to_mouse)
     newEngine.draw_text('X: '+str(player['x']), 0, 0, Roboto, 10)
     newEngine.draw_text('Y: '+str(player['y']), 0, 10, Roboto, 10)
     newEngine.step(framerate)
     newEngine.clear_screen("white")
+
