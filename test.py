@@ -1,4 +1,3 @@
-import Engine
 import Engine.maths
 import pygame
 
@@ -36,8 +35,11 @@ while newEngine.running:
     rot_to_mouse = Engine.maths.get_angle_to_mouse(pygame.Vector2(player['x'], player['y']))
 
     cat = newEngine.draw_image(catimg, 70, 70, player['x'], player['y'], rot_to_mouse)
+    mouse_pos = Engine.get_mouse_position()
+    line_to_mouse = newEngine.draw_line("black", player['x'], player['y'], mouse_pos[0], mouse_pos[1])
     newEngine.draw_text('X: '+str(player['x']), 0, 0, Roboto, 10)
     newEngine.draw_text('Y: '+str(player['y']), 0, 10, Roboto, 10)
+    newEngine.draw_slider(100, 100, 180, 120, 1, 100)
     newEngine.step(framerate)
     newEngine.clear_screen("white")
 
