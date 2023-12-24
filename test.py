@@ -35,6 +35,7 @@ while newEngine.running:
     rot_to_mouse = Engine.maths.get_angle_to_mouse(pygame.Vector2(player['x'], player['y']))
 
     cat = newEngine.draw_image(catimg, 70, 70, player['x'], player['y'], rot_to_mouse)
+    cat_border = newEngine.draw_rect("black", player['x'], player['y'], 70, 70, 2, rot_to_mouse)
     mouse_pos = Engine.get_mouse_position()
     line_to_mouse = newEngine.draw_line("black", player['x']+35, player['y']+35, mouse_pos[0], mouse_pos[1])
     newEngine.draw_text('X: '+str(player['x']), 0, 0, Roboto, 10)

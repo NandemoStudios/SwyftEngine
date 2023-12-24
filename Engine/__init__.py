@@ -3,6 +3,7 @@ import logging
 import pygame_widgets
 from pygame_widgets.slider import Slider
 from pygame_widgets.button import Button
+import math
 
 class Engine:
     def __init__(self, x, y):
@@ -38,6 +39,9 @@ class Engine:
 
     def draw_rect(self, color, x1, y1, x2, y2, width, angle):
         rect_rect = pygame.Rect(x1, y1, x2, y2)
+        positions = get_rectangle_corners(x2, y2, rect_rect.center, angle)
+        print(positions)
+        #new_rect = pygame.Rect(positions[0][1], positions[0][0], x2, y2)
         pygame.draw.rect(self.screen, color, rect_rect, width)
 
     def draw_line(self, color, start_x, start_y, end_x, end_y):
@@ -56,6 +60,7 @@ class Engine:
         rect.center = ((xpos + (x / 2)), (ypos + (y / 2)))
         img_rect = img.get_rect(center=pygame.Vector2(xpos+(x/2), ypos+(y/2)))
         self.screen.blit(img, img_rect)
+        return img
 
     def draw_slider(self, x1, y1, x2, y2, min_value, max_value):
         slider = Slider(self.screen, x1, y1, x2, y2, min=min_value, max=max_value)
@@ -70,3 +75,47 @@ class Engine:
 def get_mouse_position():
     return pygame.mouse.get_pos()
 
+
+def rotate_point(center, point, angle):
+    # Convert the angle to radians
+    angle_rad = math.radians(angle)
+
+    # Translate the point so that the center is at the origin
+    translated_point = (point[0] - center[0], point[1] - center[1])
+
+    # Apply the rotation
+    rotated_point = (translated_point[0] * math.cos(angle_rad) - translated_point[1] * math.sin(angle_rad),
+                     translated_point[0] * math.sin(angle_rad) + translated_point[1] * math.cos(angle_rad))
+
+    # Translate the point back to its original position
+    final_point = (rotated_point[0] + center[0], rotated_point[1] + center[1])
+
+    return final_point
+
+def get_rectangle_corners(xSize, ySize, center, angle):
+    half_width = xSize/2
+    half_height = ySize/2
+    top_left_corner = (center[0] - half_width, center[1] - half_height)
+    top_right_corner = (center[0] + half_width, center[1] - half_height)
+    bottom_left_corner = (center[0] - half_width, center[1] + half_height)
+    bottom_right_corner = (center[0] + half_width, center[1] + half_height)
+    rotated_top_left = rotate_point(center, top_left_corner, angle)
+    rotated_top_right = rotate_point(center, top_right_corner, angle)
+    rotated_bottom_left = rotate_point(center, bottom_left_corner, angle)
+    rotated_bottom_right = rotate_point(center, bottom_right_corner, angle)
+    points = [rotated_top_left, rotated_top_right, rotated_bottom_left, rotated_bottom_right]
+    return points
+
+class Sprite(pygame.sprite.Sprite):
+
+    def __init__(self, color, width, height):
+        pygame.sprite.Sprite.__init__(self)
+
+        self.sprite = pygame.Surface([width, height])
+        self.sprite.fill(color)
+
+        self.rect = self.sprite.get_rect()
+
+    def update(self, angle):
+        self.sprite = pygame.transform.rotate(self.sprite, angle)
+        self.rect = self.sprite.get_rect(center=self.rect.center)
