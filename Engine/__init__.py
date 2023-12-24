@@ -40,8 +40,7 @@ class Engine:
     def draw_rect(self, color, x1, y1, x2, y2, width, angle):
         rect_rect = pygame.Rect(x1, y1, x2, y2)
         positions = get_rectangle_corners(x2, y2, rect_rect.center, angle)
-        print(positions)
-        #new_rect = pygame.Rect(positions[0][1], positions[0][0], x2, y2)
+        # new_rect = pygame.Rect(positions[0][1], positions[0][0], x2, y2)
         pygame.draw.rect(self.screen, color, rect_rect, width)
 
     def draw_line(self, color, start_x, start_y, end_x, end_y):
