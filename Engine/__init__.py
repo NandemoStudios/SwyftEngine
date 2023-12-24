@@ -36,7 +36,7 @@ class Engine:
         except ValueError:
             logging.error("Error, Either center is not two numbers in a sequence, or the radius is not a number")
 
-    def draw_rect(self, color, x1, y1, x2, y2, width):
+    def draw_rect(self, color, x1, y1, x2, y2, width, angle):
         rect_rect = pygame.Rect(x1, y1, x2, y2)
         pygame.draw.rect(self.screen, color, rect_rect, width)
 
@@ -52,11 +52,14 @@ class Engine:
         img = pygame.image.load(path).convert_alpha()
         img = pygame.transform.scale(img, (x, y))
         img = pygame.transform.rotate(img, angle)
-        self.screen.blit(img, (xpos, ypos))
+        rect = img.get_rect()
+        rect.center = ((xpos + (x / 2)), (ypos + (y / 2)))
+        img_rect = img.get_rect(center=pygame.Vector2(xpos+(x/2), ypos+(y/2)))
+        self.screen.blit(img, img_rect)
 
     def draw_slider(self, x1, y1, x2, y2, min_value, max_value):
         slider = Slider(self.screen, x1, y1, x2, y2, min=min_value, max=max_value)
-        return Slider
+        return slider
 
     @staticmethod
     def get_input():
