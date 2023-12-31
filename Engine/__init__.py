@@ -1,9 +1,9 @@
-import pygame
 import logging
-import pygame_widgets
-from pygame_widgets.slider import Slider
-from pygame_widgets.button import Button
 import math
+
+import pygame
+from pygame_widgets.slider import Slider
+
 
 class Engine:
     def __init__(self, x, y):
